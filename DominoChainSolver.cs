@@ -6,10 +6,15 @@
         {
             foreach (var dominoSet in dominos)
             {
-                var orderedSet = dominoSet.OrderBy(d => d.Item1 != d.Item2).ToList();
-                var chain = FindCircularChain(orderedSet);
-                LogResult(dominoSet, chain);
+                Solve(dominoSet);
             }
+        }
+
+        public static void Solve(List<(int, int)> dominoSet)
+        {
+            var orderedSet = dominoSet.OrderBy(d => d.Item1 != d.Item2).ToList();
+            var chain = FindCircularChain(orderedSet);
+            LogResult(dominoSet, chain);
         }
 
         private static List<(int, int)> FindCircularChain(List<(int, int)> dominos)
