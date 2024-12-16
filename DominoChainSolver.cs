@@ -18,16 +18,19 @@
             used[0] = true;
             var chain = new List<(int, int)>() { dominos[0] };
 
-            GetChain(dominos, chain, used);
+            if (!BuildChain(dominos, chain, used))
+            {
+                chain.Clear();
+            }
 
             return chain;
         }
 
-        private static bool GetChain(List<(int, int)> dominos, List<(int, int)> chain, bool[] used)
+        private static bool BuildChain(List<(int, int)> dominos, List<(int, int)> chain, bool[] used)
         {
             if (dominos.Count == chain.Count)
             {
-                return true;
+                return chain.First().Item1 == chain.Last().Item2;
             }
 
             for (int i = 0; i < dominos.Count(); i++)
@@ -44,7 +47,7 @@
                 {
                     chain.Add(next);
                     used[i] = true;
-                    if (GetChain(dominos, chain, used))
+                    if (BuildChain(dominos, chain, used))
                     {
                         return true;
                     }
@@ -56,7 +59,7 @@
                 {
                     chain.Add((next.Item2, next.Item1));
                     used[i] = true;
-                    if (GetChain(dominos, chain, used))
+                    if (BuildChain(dominos, chain, used))
                     {
                         return true;
                     }
