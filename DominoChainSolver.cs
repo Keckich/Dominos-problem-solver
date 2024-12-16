@@ -4,10 +4,11 @@
     {
         public static void Solve(List<List<(int, int)>> dominos)
         {
-            foreach (var dominosSet in dominos)
+            foreach (var dominoSet in dominos)
             {
-                var chain = FindCircularChain(dominosSet);
-                LogResult(dominosSet, chain);
+                var orderedSet = dominoSet.OrderBy(d => d.Item1 != d.Item2).ToList();
+                var chain = FindCircularChain(orderedSet);
+                LogResult(dominoSet, chain);
             }
         }
 
@@ -73,14 +74,14 @@
             chain.RemoveAt(chain.Count - 1);
         }
 
-        private static void LogResult(List<(int, int)> dominosSet, List<(int, int)> chain)
+        private static void LogResult(List<(int, int)> dominoSet, List<(int, int)> chain)
         {
             Console.Write("Set: ");
-            foreach (var item in dominosSet)
+            foreach (var item in dominoSet)
             {
                 Console.Write($"[{item.Item1}|{item.Item2}] ");
             }
-            if (chain.Count == dominosSet.Count)
+            if (chain.Count == dominoSet.Count)
             {
                 Console.Write("Result chain: ");
                 foreach (var item in chain)
